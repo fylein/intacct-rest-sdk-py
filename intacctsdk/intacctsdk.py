@@ -29,6 +29,7 @@ class IntacctRESTSDK:
         self.accounts = Accounts(self)
         self.entities = Entities(self)
         self.dimensions = Dimensions(self)
+        self.bills = Bills(self)
 
         self.__generate_access_token()
         self.__update_access_token()
