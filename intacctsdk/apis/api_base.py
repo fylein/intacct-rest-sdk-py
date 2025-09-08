@@ -7,7 +7,7 @@ from typing import List, Dict
 import requests
 
 from intacctsdk.constants import BASE_URL
-from intacctsdk.exceptions import IntacctRESTSDKError, BadRequestError, InternalServerError
+from intacctsdk.exceptions import IntacctRESTSDKError, BadRequestError, InternalServerError, InvalidTokenError
 
 
 class ApiBase:
@@ -52,20 +52,23 @@ class ApiBase:
             'Content-Type': 'application/json',
             'X-IA-API-Param-Entity': self.__entity_id if self.__object_path != '/objects/company-config/entity' else None
         }
-        print('Method', method, 'URL', url, 'Data', json.dumps(data), 'Use API Headers', use_api_headers, 'Headers', api_headers)
+
         response = requests.request(method=method, url=url, data=json.dumps(data) if use_api_headers and method != 'GET' else data, params=params, headers=api_headers if use_api_headers else {})
 
         if response.status_code >= 200 and response.status_code < 300:
             return response.json()
 
         elif response.status_code >= 400 and response.status_code < 500:
-            raise BadRequestError('Something wrong with the request body', response.text)
+            if response.status_code == 400 and response.text and 'Invalid token' in response.text:
+                raise InvalidTokenError('Invalid token, status code: {0}'.format(response.status_code), response.text)
+            else:
+                raise BadRequestError('Something wrong with the request body, status code: {0}'.format(response.status_code), response.text)
 
         elif response.status_code >= 500:
-            raise InternalServerError('Internal server error', response.text)
+            raise InternalServerError('Internal server error, status code: {0}'.format(response.status_code), response.text)
 
         else:
-            raise IntacctRESTSDKError('Error: {0}'.format(response.status_code), response.text)
+            raise IntacctRESTSDKError('Error: {0}, status code: {1}'.format(response.text, response.status_code), response.text)
 
 
     def _get_request(self, params: dict = None) -> List[Dict] or Dict:
