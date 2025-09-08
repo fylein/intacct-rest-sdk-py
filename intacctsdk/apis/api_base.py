@@ -123,6 +123,7 @@ class ApiBase:
         
         response = self._make_request(method='POST', url=f'{BASE_URL}/services/core/query', data={
             'object': f'platform-apps/nsp::{dimension_name.lower()}' if dimension_name else self.__object_name,
+            'fields': ['id'],
             'filters': filters,
             'filterExpression': filter_expression,
             'filterParameters': filter_parameters,
