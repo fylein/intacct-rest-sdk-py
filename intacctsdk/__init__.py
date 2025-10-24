@@ -1,5 +1,5 @@
-from .intacctsdk import IntacctRESTSDK
-from .exceptions import IntacctRESTSDKError, BadRequestError, InternalServerError
+from intacctsdk.intacctsdk import IntacctRESTSDK
+from intacctsdk.exceptions import IntacctRESTSDKError, BadRequestError, InternalServerError
 
 __all__ = [
     'IntacctRESTSDK',

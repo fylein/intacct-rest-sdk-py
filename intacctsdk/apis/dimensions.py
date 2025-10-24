@@ -1,19 +1,23 @@
-"""
-Intacct Dimensions API
-"""
+from typing import Dict, List
 
-from typing import List, Dict
-
-from .api_base import ApiBase
+from intacctsdk.apis.api_base import ApiBase
 
 
 class Dimensions(ApiBase):
     """
     Intacct Dimensions API
     """
-
-    def __init__(self, sdk_instance=None):
+    def __init__(self, sdk_instance: 'IntacctRESTSDK' = None):
+        """
+        Initialize the Dimensions API
+        :param sdk_instance: Intacct REST SDK instance
+        :return: None
+        """
         super().__init__(sdk_instance, object_path='/services/company-config/dimensions/list')
 
-    def list(self):
+    def list(self) -> List[Dict]:
+        """
+        List the dimensions
+        :return: list of dimensions
+        """
         return self._get_request().get('ia::result')
