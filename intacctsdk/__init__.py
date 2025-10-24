@@ -1,9 +1,15 @@
 from intacctsdk.intacctsdk import IntacctRESTSDK
-from intacctsdk.exceptions import IntacctRESTSDKError, BadRequestError, InternalServerError
+from intacctsdk.exceptions import (
+    BadRequestError,
+    InvalidTokenError,
+    InternalServerError,
+    IntacctRESTSDKError
+)
 
 __all__ = [
     'IntacctRESTSDK',
-    'IntacctRESTSDKError',
     'BadRequestError',
-    'InternalServerError'
+    'InvalidTokenError',
+    'InternalServerError',
+    'IntacctRESTSDKError'
 ]

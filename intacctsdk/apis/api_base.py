@@ -3,8 +3,8 @@ import requests
 from http import HTTPStatus
 from typing import List, Dict, Optional
 
-from intacctsdk.constants import BASE_URL
 from intacctsdk.enums import RESTMethodEnum
+from intacctsdk.constants import BASE_URL, PAGE_SIZE
 from intacctsdk.exceptions import (
     BadRequestError,
     InvalidTokenError,
@@ -52,7 +52,14 @@ class ApiBase:
         """
         self.__entity_id = entity_id
 
-    def _make_request(self, url: str, method: str, data: dict = {}, params: dict = {}, use_api_headers: bool = True) -> List[Dict] or Dict:
+    def _make_request(
+        self,
+        url: str,
+        method: str,
+        data: dict = {},
+        params: dict = {},
+        use_api_headers: bool = True
+    ) -> List[Dict] or Dict:
         """
         Makes a request to the API
         :param url: URL to make the request to
@@ -122,7 +129,6 @@ class ApiBase:
         :return: generator of objects
         """
         start = 1
-        page_size = 2000
 
         if not filter_expression and filters:
             filter_expression = 'and'
@@ -139,7 +145,7 @@ class ApiBase:
                     'filterParameters': filter_parameters,
                     'orderBy': order_by,
                     'start': start,
-                    'size': page_size
+                    'size': PAGE_SIZE
                 }
             )
 
@@ -148,7 +154,7 @@ class ApiBase:
             if response.get('ia::meta', {}).get('next') is None:
                 break
 
-            start += page_size
+            start += PAGE_SIZE
 
     def count(
         self,
