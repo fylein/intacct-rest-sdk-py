@@ -31,7 +31,7 @@ class ApiBase:
         self.__access_token = None
         self.__object_path = object_path
         self._sdk_instance = sdk_instance
-        self.__object_name = object_path.replace('/objects/', '')
+        self.__object_name = object_path.replace('/objects/', '') if object_path else None
 
         if sdk_instance:
             sdk_instance._register_api_instance(self)
@@ -138,7 +138,7 @@ class ApiBase:
                 method=RESTMethodEnum.POST,
                 url=f'{BASE_URL}/services/core/query',
                 data={
-                    'object': f'platform-apps/nsp::{dimension_name.lower()}' if dimension_name else self.__object_name,
+                    'object': f'platform-apps/nsp::{dimension_name}' if dimension_name else self.__object_name,
                     'fields': fields,
                     'filters': filters,
                     'filterExpression': filter_expression,
@@ -178,7 +178,7 @@ class ApiBase:
             method=RESTMethodEnum.POST,
             url=f'{BASE_URL}/services/core/query',
             data={
-                'object': f'platform-apps/nsp::{dimension_name.lower()}' if dimension_name else self.__object_name,
+                'object': f'platform-apps/nsp::{dimension_name}' if dimension_name else self.__object_name,
                 'fields': ['id'],
                 'filters': filters,
                 'filterExpression': filter_expression,
@@ -212,4 +212,32 @@ class ApiBase:
             params={
                 'name': self.__object_name
             }
+        )
+
+    def update_attachment(self, object_id: str, attachment_id: str) -> Dict:
+        """
+        Update the attachment for an object
+        :param object_id: id of the object
+        :param attachment_id: id of the attachment
+        :return: attachment
+        """
+        return self._make_request(
+            method=RESTMethodEnum.PATCH,
+            url=f'{BASE_URL}{self.__object_path}/{object_id}',
+            data={
+                'attachment': {
+                    'id': attachment_id
+                }
+            }
+        )
+
+    def delete(self, object_id: str) -> Dict:
+        """
+        Delete an object
+        :param object_id: id of the object
+        :return: bill
+        """
+        return self._make_request(
+            method=RESTMethodEnum.DELETE,
+            url=f'{BASE_URL}{self.__object_path}/{object_id}'
         )
