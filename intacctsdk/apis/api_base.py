@@ -29,9 +29,9 @@ class ApiBase:
         """
         self.__entity_id = None
         self.__access_token = None
-        self.__object_path = object_path
+        self._object_path = object_path
         self._sdk_instance = sdk_instance
-        self.__object_name = object_path.replace('/objects/', '')
+        self.__object_name = object_path.replace('/objects/', '') if object_path else None
 
         if sdk_instance:
             sdk_instance._register_api_instance(self)
@@ -73,7 +73,7 @@ class ApiBase:
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Authorization': 'Bearer {0}'.format(self.__access_token),
-            'X-IA-API-Param-Entity': self.__entity_id if self.__object_path != '/objects/company-config/entity' else None
+            'X-IA-API-Param-Entity': self.__entity_id if self._object_path != '/objects/company-config/entity' else None
         }
 
         response = requests.request(
@@ -105,7 +105,7 @@ class ApiBase:
         :param params: parameters to send
         :return: response from the request
         """
-        url = f'{BASE_URL}{self.__object_path}'
+        url = f'{BASE_URL}{self._object_path}'
 
         return self._make_request(method=RESTMethodEnum.GET, url=url, params=params)
 
@@ -138,7 +138,7 @@ class ApiBase:
                 method=RESTMethodEnum.POST,
                 url=f'{BASE_URL}/services/core/query',
                 data={
-                    'object': f'platform-apps/nsp::{dimension_name.lower()}' if dimension_name else self.__object_name,
+                    'object': f'platform-apps/nsp::{dimension_name}' if dimension_name else self.__object_name,
                     'fields': fields,
                     'filters': filters,
                     'filterExpression': filter_expression,
@@ -178,7 +178,7 @@ class ApiBase:
             method=RESTMethodEnum.POST,
             url=f'{BASE_URL}/services/core/query',
             data={
-                'object': f'platform-apps/nsp::{dimension_name.lower()}' if dimension_name else self.__object_name,
+                'object': f'platform-apps/nsp::{dimension_name}' if dimension_name else self.__object_name,
                 'fields': ['id'],
                 'filters': filters,
                 'filterExpression': filter_expression,
@@ -198,7 +198,7 @@ class ApiBase:
         """
         return self._make_request(
             method=RESTMethodEnum.GET,
-            url=f'{BASE_URL}{self.__object_path}/{id}'
+            url=f'{BASE_URL}{self._object_path}/{id}'
         )
 
     def get_model(self) -> Dict:
@@ -211,5 +211,50 @@ class ApiBase:
             url=f'{BASE_URL}/services/core/model',
             params={
                 'name': self.__object_name
+            }
+        )
+
+    def delete(self, object_id: str) -> Dict:
+        """
+        Delete an object
+        :param object_id: id of the object
+        :return: bill
+        """
+        return self._make_request(
+            method=RESTMethodEnum.DELETE,
+            url=f'{BASE_URL}{self._object_path}/{object_id}'
+        )
+
+
+class TransactionApiBase(ApiBase):
+    """
+    The base class for all transaction-related API classes
+    :param sdk_instance: Intacct REST SDK instance
+    :param object_path: Object path
+    :return: None
+    """
+    def __init__(self, sdk_instance: 'IntacctRESTSDK' = None, object_path: str = None):
+        """
+        Initialize the transaction API base
+        :param sdk_instance: Intacct REST SDK instance
+        :param object_path: Object path
+        :return: None
+        """
+        super().__init__(sdk_instance, object_path)
+
+    def update_attachment(self, object_id: str, attachment_id: str) -> Dict:
+        """
+        Update the attachment for an object
+        :param object_id: id of the object
+        :param attachment_id: id of the attachment
+        :return: attachment
+        """
+        return self._make_request(
+            method=RESTMethodEnum.PATCH,
+            url=f'{BASE_URL}{self._object_path}/{object_id}',
+            data={
+                'attachment': {
+                    'id': attachment_id
+                }
             }
         )

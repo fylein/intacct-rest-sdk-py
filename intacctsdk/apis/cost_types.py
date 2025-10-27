@@ -1,14 +1,14 @@
 from intacctsdk.apis.api_base import ApiBase
 
 
-class Entities(ApiBase):
+class CostTypes(ApiBase):
     """
-    Intacct Entities API
+    Intacct Cost Types API
     """
     def __init__(self, sdk_instance: 'IntacctRESTSDK' = None):
         """
-        Initialize the Entities API
+        Initialize the Cost Types API
         :param sdk_instance: Intacct REST SDK instance
         :return: None
         """
-        super().__init__(sdk_instance, object_path='/objects/company-config/entity')
+        super().__init__(sdk_instance, object_path='/objects/construction/cost-type')

@@ -1,14 +1,14 @@
 from intacctsdk.apis.api_base import TransactionApiBase
 
 
-class Bills(TransactionApiBase):
+class ExpenseReports(TransactionApiBase):
     """
-    Intacct Bills API
+    Intacct Expense Reports API
     """
     def __init__(self, sdk_instance: 'IntacctRESTSDK' = None):
         """
-        Initialize the Bills API
+        Initialize the Expense Reports API
         :param sdk_instance: Intacct REST SDK instance
         :return: None
         """
-        super().__init__(sdk_instance, object_path='/objects/accounts-payable/bill')
+        super().__init__(sdk_instance, object_path='/objects/expenses/employee-expense')

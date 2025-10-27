@@ -4,10 +4,33 @@ from intacctsdk.constants import BASE_URL
 from intacctsdk.enums import RESTMethodEnum
 from intacctsdk.apis import (
     Bills,
+    Items,
+    Tasks,
+    Classes,
+    Vendors,
     ApiBase,
     Accounts,
-    Entities,
-    Dimensions
+    Contacts,
+    CostTypes,
+    Projects,
+    Customers,
+    Employees,
+    Locations,
+    TaxDetails,
+    Dimensions,
+    Departments,
+    APPayments,
+    Attachments,
+    Allocations,
+    ExpenseTypes,
+    ExpenseReports,
+    JournalEntries,
+    SavingsAccounts,
+    LocationEntities,
+    CheckingAccounts,
+    ChargeCardAccounts,
+    ExpensePaymentTypes,
+    ChargeCardTransactions
 )
 
 
@@ -32,15 +55,39 @@ class IntacctRESTSDK:
         """
         self.__entity_id = entity_id
         self.__refresh_token = refresh_token
-        self.__client_id = os.getenv('INTACCT_CLIENT_ID') or client_id
-        self.__client_secret = os.getenv('INTACCT_CLIENT_SECRET') or client_secret
+        self.__client_id = client_id or os.getenv('INTACCT_CLIENT_ID')
+        self.__client_secret = client_secret or os.getenv('INTACCT_CLIENT_SECRET')
 
         self._api_instances = []
 
+        # Initialize all API modules
         self.bills = Bills(self)
+        self.tasks = Tasks(self)
+        self.items = Items(self)
+        self.classes = Classes(self)
+        self.vendors = Vendors(self)
         self.accounts = Accounts(self)
-        self.entities = Entities(self)
+        self.contacts = Contacts(self)
+        self.projects = Projects(self)
+        self.customers = Customers(self)
+        self.employees = Employees(self)
+        self.locations = Locations(self)
+        self.cost_types = CostTypes(self)
         self.dimensions = Dimensions(self)
+        self.tax_details = TaxDetails(self)
+        self.ap_payments = APPayments(self)
+        self.departments = Departments(self)
+        self.allocations = Allocations(self)
+        self.attachments = Attachments(self)
+        self.expense_types = ExpenseTypes(self)
+        self.expense_reports = ExpenseReports(self)
+        self.journal_entries = JournalEntries(self)
+        self.savings_accounts = SavingsAccounts(self)
+        self.location_entities = LocationEntities(self)
+        self.checking_accounts = CheckingAccounts(self)
+        self.charge_card_accounts = ChargeCardAccounts(self)
+        self.expense_payment_types = ExpensePaymentTypes(self)
+        self.charge_card_transactions = ChargeCardTransactions(self)
         self.api_base = ApiBase(self, object_path='/oauth2/token')
 
         self.__update_entity_id()

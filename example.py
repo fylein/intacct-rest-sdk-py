@@ -6,14 +6,16 @@ from dotenv import load_dotenv
 
 from intacctsdk import IntacctRESTSDK
 from intacctsdk.constants import TOKEN_URL
-from intacctsdk.exceptions import InvalidTokenError, BadRequestError, InternalServerError
+from intacctsdk.exceptions import (
+    BadRequestError,
+    InvalidTokenError,
+    InternalServerError
+)
 
 load_dotenv()
 
 REDIRECT_URI = 'https://sage-intacct-oauth-redirect-uri.example.com'  # put your redirect uri here
 TOKEN_FILE = 'tokens.json'
-INTACCT_CLIENT_ID = os.getenv('INTACCT_CLIENT_ID')
-INTACCT_CLIENT_SECRET = os.getenv('INTACCT_CLIENT_SECRET')
 
 
 def store_refresh_token(refresh_token: str) -> None:
@@ -108,13 +110,12 @@ def main() -> None:
         )
         store_refresh_token(sdk.refresh_token)
 
-        # Get specific fields for accounts with filters, sorting, etc.
         accounts_generator = sdk.accounts.get_all_generator(
-            fields=['id', 'name', 'key', 'status'],
+            fields=['id', 'name', 'status', 'audit.modifiedDateTime'],
             filters=[
                 {
                     "$eq": {
-                        "status": "inactive"
+                        "status": "active"
                     }
                 },
                 {
@@ -124,58 +125,9 @@ def main() -> None:
                 }
             ]
         )
+
         for account in accounts_generator:
             print(account)
-
-        # Get a specific account by id
-        # account = sdk.accounts.get_by_id('350')
-        # print(account)
-
-        # Get all entities
-        # entities_generator = sdk.entities.get_all_generator(fields=['id', 'name'])
-        # for entity in entities_generator:
-        #     print(entity)
-
-        # Get the model for the accounts object
-        # model = sdk.accounts.get_model()
-        # print(model)
-
-        # Get all dimensions
-        # dimensions = sdk.dimensions.list()
-        # print(dimensions)
-
-        # Get dimension fields for a specific dimension name
-        # dimensions_generator = sdk.dimensions.get_all_generator(dimension_name='NEW_TEAM', fields=['id', 'name'])
-        # for dimension in dimensions_generator:
-        #     print(dimension)
-
-        # Get the count of accounts with filters
-        # count = sdk.accounts.count(filters=[
-        #     {
-        #         "$eq": {
-        #             "status": "inactive"
-        #         }
-        #     },
-        #     {
-        #         "$gte": {
-        #             "audit.modifiedDateTime": "2025-08-19T07:13:58Z"
-        #         }
-        #     }
-        # ])
-        # print(count)
-
-        # Get the count of dimensions for a specific dimension name
-        # count = sdk.dimensions.count(dimension_name='NEW_TEAM')
-        # print(count)
-
-        # Get all bills with specific fields
-        # bills_generator = sdk.bills.get_all_generator(fields=['id'])
-        # for bill in bills_generator:
-        #     print(bill)
-
-        # Get a specific bill by id
-        # bill = sdk.bills.get_by_id('4375')
-        # print(bill)
 
     except (InvalidTokenError, BadRequestError, InternalServerError) as e:
         print(e.message, e.response)
