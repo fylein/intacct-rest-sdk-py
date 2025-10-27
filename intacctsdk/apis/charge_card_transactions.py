@@ -1,7 +1,7 @@
-from intacctsdk.apis.api_base import ApiBase
+from intacctsdk.apis.api_base import TransactionApiBase
 
 
-class ChargeCardTransactions(ApiBase):
+class ChargeCardTransactions(TransactionApiBase):
     """
     Intacct Charge Card Transactions API
     """

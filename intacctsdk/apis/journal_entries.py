@@ -1,7 +1,7 @@
-from intacctsdk.apis.api_base import ApiBase
+from intacctsdk.apis.api_base import TransactionApiBase
 
 
-class JournalEntries(ApiBase):
+class JournalEntries(TransactionApiBase):
     """
     Intacct Journal Entries API
     """

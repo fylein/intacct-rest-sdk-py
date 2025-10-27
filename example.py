@@ -16,8 +16,6 @@ load_dotenv()
 
 REDIRECT_URI = 'https://sage-intacct-oauth-redirect-uri.example.com'  # put your redirect uri here
 TOKEN_FILE = 'tokens.json'
-INTACCT_CLIENT_ID = os.getenv('INTACCT_CLIENT_ID')
-INTACCT_CLIENT_SECRET = os.getenv('INTACCT_CLIENT_SECRET')
 
 
 def store_refresh_token(refresh_token: str) -> None:
@@ -107,12 +105,29 @@ def main() -> None:
 
     try:
         sdk = IntacctRESTSDK(
-            client_id=INTACCT_CLIENT_ID,
-            client_secret=INTACCT_CLIENT_SECRET,
             refresh_token=refresh_token,
             # entity_id='200' # put your entity id here if you want to use a specific entity
         )
         store_refresh_token(sdk.refresh_token)
+
+        accounts_generator = sdk.accounts.get_all_generator(
+            fields=['id', 'name', 'status', 'audit.modifiedDateTime'],
+            filters=[
+                {
+                    "$eq": {
+                        "status": "active"
+                    }
+                },
+                {
+                    "$gte": {
+                        "audit.modifiedDateTime": "2025-05-01T07:13:58Z"
+                    }
+                }
+            ]
+        )
+
+        for account in accounts_generator:
+            print(account)
 
     except (InvalidTokenError, BadRequestError, InternalServerError) as e:
         print(e.message, e.response)

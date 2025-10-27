@@ -1,7 +1,7 @@
-from intacctsdk.apis.api_base import ApiBase
+from intacctsdk.apis.api_base import TransactionApiBase
 
 
-class ExpenseReports(ApiBase):
+class ExpenseReports(TransactionApiBase):
     """
     Intacct Expense Reports API
     """

@@ -1,3 +1,5 @@
+import os
+
 from intacctsdk.constants import BASE_URL
 from intacctsdk.enums import RESTMethodEnum
 from intacctsdk.apis import (
@@ -12,7 +14,6 @@ from intacctsdk.apis import (
     CostTypes,
     Projects,
     Customers,
-    Entities,
     Employees,
     Locations,
     TaxDetails,
@@ -22,12 +23,9 @@ from intacctsdk.apis import (
     Attachments,
     Allocations,
     ExpenseTypes,
-    Reimbursements,
     ExpenseReports,
     JournalEntries,
     SavingsAccounts,
-    AllocationEntry,
-    DimensionValues,
     LocationEntities,
     CheckingAccounts,
     ChargeCardAccounts,
@@ -56,9 +54,9 @@ class IntacctRESTSDK:
         :return: None
         """
         self.__entity_id = entity_id
-        self.__client_id = client_id
-        self.__client_secret = client_secret
         self.__refresh_token = refresh_token
+        self.__client_id = client_id or os.getenv('INTACCT_CLIENT_ID')
+        self.__client_secret = client_secret or os.getenv('INTACCT_CLIENT_SECRET')
 
         self._api_instances = []
 
@@ -70,7 +68,6 @@ class IntacctRESTSDK:
         self.vendors = Vendors(self)
         self.accounts = Accounts(self)
         self.contacts = Contacts(self)
-        self.entities = Entities(self)
         self.projects = Projects(self)
         self.customers = Customers(self)
         self.employees = Employees(self)
@@ -83,11 +80,8 @@ class IntacctRESTSDK:
         self.allocations = Allocations(self)
         self.attachments = Attachments(self)
         self.expense_types = ExpenseTypes(self)
-        self.reimbursements = Reimbursements(self)
         self.expense_reports = ExpenseReports(self)
         self.journal_entries = JournalEntries(self)
-        self.dimension_values = DimensionValues(self)
-        self.allocation_entry = AllocationEntry(self)
         self.savings_accounts = SavingsAccounts(self)
         self.location_entities = LocationEntities(self)
         self.checking_accounts = CheckingAccounts(self)
