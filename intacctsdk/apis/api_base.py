@@ -85,6 +85,8 @@ class ApiBase:
         )
 
         if response.status_code >= HTTPStatus.OK and response.status_code < HTTPStatus.MULTIPLE_CHOICES:
+            if response.status_code == HTTPStatus.NO_CONTENT:
+                return None
             return response.json()
 
         elif response.status_code >= HTTPStatus.BAD_REQUEST and response.status_code < HTTPStatus.INTERNAL_SERVER_ERROR:
@@ -190,15 +192,15 @@ class ApiBase:
 
         return response['ia::meta']['totalCount']
 
-    def get_by_id(self, id: str) -> Dict:
+    def get_by_key(self, key: str) -> Dict:
         """
-        Get an object by id
-        :param id: id of the object
+        Get an object by key
+        :param key: key of the object
         :return: object
         """
         return self._make_request(
             method=RESTMethodEnum.GET,
-            url=f'{BASE_URL}{self._object_path}/{id}'
+            url=f'{BASE_URL}{self._object_path}/{key}'
         )
 
     def get_model(self) -> Dict:
@@ -214,15 +216,27 @@ class ApiBase:
             }
         )
 
-    def delete(self, object_id: str) -> Dict:
+    def post(self, data: Dict) -> Dict:
+        """
+        Create an object
+        :param data: data to create the object
+        :return: created object
+        """
+        return self._make_request(
+            method=RESTMethodEnum.POST,
+            url=f'{BASE_URL}{self._object_path}',
+            data=data
+        )
+
+    def delete(self, key: str) -> Dict:
         """
         Delete an object
-        :param object_id: id of the object
-        :return: bill
+        :param key: key of the object
+        :return: deleted object
         """
         return self._make_request(
             method=RESTMethodEnum.DELETE,
-            url=f'{BASE_URL}{self._object_path}/{object_id}'
+            url=f'{BASE_URL}{self._object_path}/{key}'
         )
 
 

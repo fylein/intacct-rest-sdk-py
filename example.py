@@ -16,6 +16,8 @@ load_dotenv()
 
 REDIRECT_URI = 'https://sage-intacct-oauth-redirect-uri.example.com'  # put your redirect uri here
 TOKEN_FILE = 'tokens.json'
+INTACCT_CLIENT_ID = os.getenv('INTACCT_CLIENT_ID')
+INTACCT_CLIENT_SECRET = os.getenv('INTACCT_CLIENT_SECRET')
 
 
 def store_refresh_token(refresh_token: str) -> None:
