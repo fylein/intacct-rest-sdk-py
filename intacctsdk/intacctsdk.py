@@ -41,6 +41,7 @@ class IntacctRESTSDK:
     def __init__(
         self,
         refresh_token: str,
+        access_token: str = None,
         client_id: str = None,
         client_secret: str = None,
         entity_id: str = None
@@ -48,6 +49,7 @@ class IntacctRESTSDK:
         """
         Initialize connection to Intacct
         :param refresh_token: Intacct refresh_token
+        :param access_token: Intacct access_token
         :param client_id: Intacct client_id
         :param client_secret: Intacct client_secret
         :param entity_id: Intacct entity_id
@@ -55,6 +57,7 @@ class IntacctRESTSDK:
         """
         self.__entity_id = entity_id
         self.__refresh_token = refresh_token
+        self.__access_token = access_token
         self.__client_id = client_id or os.getenv('INTACCT_CLIENT_ID')
         self.__client_secret = client_secret or os.getenv('INTACCT_CLIENT_SECRET')
 
@@ -91,7 +94,10 @@ class IntacctRESTSDK:
         self.api_base = ApiBase(self, object_path='/oauth2/token')
 
         self.__update_entity_id()
-        self.__generate_access_token()
+
+        if not self.__access_token:
+            self.__generate_access_token()
+
         self.__update_access_token()
 
     def __generate_access_token(self):
@@ -144,3 +150,11 @@ class IntacctRESTSDK:
         :return: refresh token
         """
         return self.__refresh_token
+
+    @property
+    def access_token(self) -> str:
+        """
+        Get the access token
+        :return: access token
+        """
+        return self.__access_token
