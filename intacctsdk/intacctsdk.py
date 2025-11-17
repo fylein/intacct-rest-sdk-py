@@ -11,6 +11,7 @@ from intacctsdk.apis import (
     ApiBase,
     Accounts,
     Contacts,
+    Sessions,
     CostTypes,
     Projects,
     Customers,
@@ -69,6 +70,7 @@ class IntacctRESTSDK:
         self.items = Items(self)
         self.classes = Classes(self)
         self.vendors = Vendors(self)
+        self.sessions = Sessions(self)
         self.accounts = Accounts(self)
         self.contacts = Contacts(self)
         self.projects = Projects(self)
