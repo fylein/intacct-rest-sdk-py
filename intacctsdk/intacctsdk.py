@@ -29,6 +29,7 @@ from intacctsdk.apis import (
     SavingsAccounts,
     LocationEntities,
     CheckingAccounts,
+    AttachmentFolders,
     ChargeCardAccounts,
     ExpensePaymentTypes,
     ChargeCardTransactions
@@ -90,6 +91,7 @@ class IntacctRESTSDK:
         self.savings_accounts = SavingsAccounts(self)
         self.location_entities = LocationEntities(self)
         self.checking_accounts = CheckingAccounts(self)
+        self.attachment_folders = AttachmentFolders(self)
         self.charge_card_accounts = ChargeCardAccounts(self)
         self.expense_payment_types = ExpensePaymentTypes(self)
         self.charge_card_transactions = ChargeCardTransactions(self)

@@ -24,6 +24,7 @@ from intacctsdk.apis.expense_reports import ExpenseReports
 from intacctsdk.apis.savings_accounts import SavingsAccounts
 from intacctsdk.apis.checking_accounts import CheckingAccounts
 from intacctsdk.apis.location_entities import LocationEntities
+from intacctsdk.apis.attachment_folders import AttachmentFolders
 from intacctsdk.apis.charge_card_accounts import ChargeCardAccounts
 from intacctsdk.apis.expense_payment_types import ExpensePaymentTypes
 from intacctsdk.apis.charge_card_transactions import ChargeCardTransactions
@@ -56,6 +57,7 @@ __all__ = [
     'SavingsAccounts',
     'CheckingAccounts',
     'LocationEntities',
+    'AttachmentFolders',
     'ChargeCardAccounts',
     'ExpensePaymentTypes',
     'ChargeCardTransactions',
