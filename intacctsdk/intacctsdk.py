@@ -58,6 +58,7 @@ class IntacctRESTSDK:
         :param client_id: Intacct client_id
         :param client_secret: Intacct client_secret
         :param entity_id: Intacct entity_id
+        :param use_client_credentials_auth: Use client credentials authentication
         :return: None
         """
         self.__entity_id = entity_id
