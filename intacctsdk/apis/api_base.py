@@ -90,7 +90,7 @@ class ApiBase:
             return response.json()
 
         elif response.status_code >= HTTPStatus.BAD_REQUEST and response.status_code < HTTPStatus.INTERNAL_SERVER_ERROR:
-            if response.status_code == HTTPStatus.BAD_REQUEST and response.text and ('Invalid token' in response.text or 'The token is not valid' in response.text):
+            if response.status_code == HTTPStatus.BAD_REQUEST and response.text and ('Invalid token' in str(response.text) or 'The token is not valid' in str(response.text)):
                 raise InvalidTokenError('Invalid token, status code: {0}'.format(response.status_code), response.text)
             else:
                 raise BadRequestError('Something wrong with the request body, status code: {0}'.format(response.status_code), response.text)
