@@ -42,14 +42,17 @@ class IntacctRESTSDK:
     """
     def __init__(
         self,
-        refresh_token: str,
+        username: str = None,
+        refresh_token: str = None,
         access_token: str = None,
         client_id: str = None,
         client_secret: str = None,
-        entity_id: str = None
+        entity_id: str = None,
+        use_client_credentials_auth: bool = True
     ) -> None:
         """
         Initialize connection to Intacct
+        :param username: Intacct username
         :param refresh_token: Intacct refresh_token
         :param access_token: Intacct access_token
         :param client_id: Intacct client_id
@@ -58,6 +61,8 @@ class IntacctRESTSDK:
         :return: None
         """
         self.__entity_id = entity_id
+        self.__username = username
+        self.__use_client_credentials_auth = use_client_credentials_auth
         self.__refresh_token = refresh_token
         self.__access_token = access_token
         self.__client_id = client_id or os.getenv('INTACCT_CLIENT_ID')
@@ -100,11 +105,14 @@ class IntacctRESTSDK:
         self.__update_entity_id()
 
         if not self.__access_token:
-            self.__generate_access_token()
+            if self.__use_client_credentials_auth:
+                self.__generate_access_token_from_client_credentials()
+            else:
+                self.__generate_access_token_from_refresh_token()
 
         self.__update_access_token()
 
-    def __generate_access_token(self):
+    def __generate_access_token_from_refresh_token(self):
         """
         Generate the access token using the refresh token.
         """
@@ -113,6 +121,27 @@ class IntacctRESTSDK:
             'client_id': self.__client_id,
             'client_secret': self.__client_secret,
             'refresh_token': self.__refresh_token
+        }
+
+        response = self.api_base._make_request(
+            url=f'{BASE_URL}/oauth2/token',
+            method=RESTMethodEnum.POST,
+            data=payload,
+            use_api_headers=False
+        )
+
+        self.__access_token = response['access_token']
+        self.__refresh_token = response['refresh_token']
+
+    def __generate_access_token_from_client_credentials(self):
+        """
+        Generate the access token using the client credentials.
+        """
+        payload = {
+            'grant_type': 'client_credentials',
+            'client_id': self.__client_id,
+            'client_secret': self.__client_secret,
+            'username': self.__username
         }
 
         response = self.api_base._make_request(
