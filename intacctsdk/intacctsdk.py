@@ -194,3 +194,11 @@ class IntacctRESTSDK:
         :return: access token
         """
         return self.__access_token
+
+    @property
+    def access_token_expires_in(self) -> int:
+        """
+        Get the access token expires in
+        :return: access token expires in
+        """
+        return self.__access_token_expires_in
