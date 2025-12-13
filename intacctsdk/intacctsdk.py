@@ -133,6 +133,7 @@ class IntacctRESTSDK:
 
         self.__access_token = response['access_token']
         self.__refresh_token = response['refresh_token']
+        self.__access_token_expires_in = response['expires_in']
 
     def __generate_access_token_from_client_credentials(self):
         """
@@ -154,6 +155,7 @@ class IntacctRESTSDK:
 
         self.__access_token = response['access_token']
         self.__refresh_token = response['refresh_token']
+        self.__access_token_expires_in = response['expires_in']
 
     def __update_access_token(self):
         """
