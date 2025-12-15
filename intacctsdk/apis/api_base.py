@@ -228,6 +228,19 @@ class ApiBase:
             data=data
         )
 
+    def update(self, key: str, data: Dict) -> Dict:
+        """
+        Update an object
+        :param key: key of the object
+        :param data: data to update the object
+        :return: updated object
+        """
+        return self._make_request(
+            method=RESTMethodEnum.PATCH,
+            url=f'{BASE_URL}{self._object_path}/{key}',
+            data=data
+        )
+
     def delete(self, key: str) -> Dict:
         """
         Delete an object
