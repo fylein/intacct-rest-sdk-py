@@ -28,6 +28,7 @@ from intacctsdk.apis.attachment_folders import AttachmentFolders
 from intacctsdk.apis.charge_card_accounts import ChargeCardAccounts
 from intacctsdk.apis.expense_payment_types import ExpensePaymentTypes
 from intacctsdk.apis.charge_card_transactions import ChargeCardTransactions
+from intacctsdk.apis.multi_entity_preferences import MultiEntityPreferences
 
 
 __all__ = [
@@ -61,4 +62,5 @@ __all__ = [
     'ChargeCardAccounts',
     'ExpensePaymentTypes',
     'ChargeCardTransactions',
+    'MultiEntityPreferences',
 ]
