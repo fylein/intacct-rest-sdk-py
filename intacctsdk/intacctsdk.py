@@ -32,7 +32,8 @@ from intacctsdk.apis import (
     AttachmentFolders,
     ChargeCardAccounts,
     ExpensePaymentTypes,
-    ChargeCardTransactions
+    ChargeCardTransactions,
+    MultiEntityPreferences
 )
 
 
@@ -101,6 +102,7 @@ class IntacctRESTSDK:
         self.charge_card_accounts = ChargeCardAccounts(self)
         self.expense_payment_types = ExpensePaymentTypes(self)
         self.charge_card_transactions = ChargeCardTransactions(self)
+        self.multi_entity_preferences = MultiEntityPreferences(self)
         self.api_base = ApiBase(self, object_path='/oauth2/token')
 
         self.__update_entity_id()
