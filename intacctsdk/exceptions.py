@@ -21,7 +21,7 @@ class IntacctRESTSDKError(Exception):
         Return the string representation of the exception
         :return: String representation of the exception
         """
-        return repr(self.message)
+        return f'{self.message} | response={self.response!r}'
 
 
 class InvalidTokenError(IntacctRESTSDKError):
