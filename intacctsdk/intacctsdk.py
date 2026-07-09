@@ -6,6 +6,7 @@ from intacctsdk.apis import (
     Bills,
     Items,
     Tasks,
+    Users,
     Classes,
     Vendors,
     ApiBase,
@@ -76,6 +77,7 @@ class IntacctRESTSDK:
         self.bills = Bills(self)
         self.tasks = Tasks(self)
         self.items = Items(self)
+        self.users = Users(self)
         self.classes = Classes(self)
         self.vendors = Vendors(self)
         self.sessions = Sessions(self)
