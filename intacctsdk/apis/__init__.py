@@ -1,6 +1,7 @@
 from intacctsdk.apis.bills import Bills
 from intacctsdk.apis.items import Items
 from intacctsdk.apis.tasks import Tasks
+from intacctsdk.apis.users import Users
 from intacctsdk.apis.classes import Classes
 from intacctsdk.apis.vendors import Vendors
 from intacctsdk.apis.api_base import ApiBase
@@ -35,6 +36,7 @@ __all__ = [
     'Bills',
     'Items',
     'Tasks',
+    'Users',
     'Classes',
     'Vendors',
     'ApiBase',
