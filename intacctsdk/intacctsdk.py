@@ -24,6 +24,7 @@ from intacctsdk.apis import (
     APPayments,
     Attachments,
     Allocations,
+    RoleUserMaps,
     ExpenseTypes,
     ExpenseReports,
     JournalEntries,
@@ -34,7 +35,8 @@ from intacctsdk.apis import (
     ChargeCardAccounts,
     ExpensePaymentTypes,
     ChargeCardTransactions,
-    MultiEntityPreferences
+    MultiEntityPreferences,
+    RolePermissionAssignments,
 )
 
 
@@ -95,6 +97,7 @@ class IntacctRESTSDK:
         self.allocations = Allocations(self)
         self.attachments = Attachments(self)
         self.expense_types = ExpenseTypes(self)
+        self.role_user_maps = RoleUserMaps(self)
         self.expense_reports = ExpenseReports(self)
         self.journal_entries = JournalEntries(self)
         self.savings_accounts = SavingsAccounts(self)
@@ -105,6 +108,7 @@ class IntacctRESTSDK:
         self.expense_payment_types = ExpensePaymentTypes(self)
         self.charge_card_transactions = ChargeCardTransactions(self)
         self.multi_entity_preferences = MultiEntityPreferences(self)
+        self.role_permission_assignments = RolePermissionAssignments(self)
         self.api_base = ApiBase(self, object_path='/oauth2/token')
 
         self.__update_entity_id()

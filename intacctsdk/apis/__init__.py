@@ -20,6 +20,7 @@ from intacctsdk.apis.allocations import Allocations
 from intacctsdk.apis.attachments import Attachments
 from intacctsdk.apis.departments import Departments
 from intacctsdk.apis.expense_types import ExpenseTypes
+from intacctsdk.apis.role_user_maps import RoleUserMaps
 from intacctsdk.apis.journal_entries import JournalEntries
 from intacctsdk.apis.expense_reports import ExpenseReports
 from intacctsdk.apis.savings_accounts import SavingsAccounts
@@ -30,6 +31,7 @@ from intacctsdk.apis.charge_card_accounts import ChargeCardAccounts
 from intacctsdk.apis.expense_payment_types import ExpensePaymentTypes
 from intacctsdk.apis.charge_card_transactions import ChargeCardTransactions
 from intacctsdk.apis.multi_entity_preferences import MultiEntityPreferences
+from intacctsdk.apis.role_permission_assignments import RolePermissionAssignments
 
 
 __all__ = [
@@ -37,6 +39,8 @@ __all__ = [
     'Items',
     'Tasks',
     'Users',
+    'RoleUserMaps',
+    'RolePermissionAssignments',
     'Classes',
     'Vendors',
     'ApiBase',
