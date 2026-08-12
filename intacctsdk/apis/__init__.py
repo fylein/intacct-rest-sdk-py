@@ -7,6 +7,7 @@ from intacctsdk.apis.vendors import Vendors
 from intacctsdk.apis.api_base import ApiBase
 from intacctsdk.apis.accounts import Accounts
 from intacctsdk.apis.contacts import Contacts
+from intacctsdk.apis.journals import Journals
 from intacctsdk.apis.sessions import Sessions
 from intacctsdk.apis.projects import Projects
 from intacctsdk.apis.customers import Customers
@@ -39,11 +40,10 @@ __all__ = [
     'Items',
     'Tasks',
     'Users',
-    'RoleUserMaps',
-    'RolePermissionAssignments',
     'Classes',
     'Vendors',
     'ApiBase',
+    'Journals',
     'Accounts',
     'Contacts',
     'Sessions',
@@ -59,6 +59,7 @@ __all__ = [
     'Attachments',
     'Departments',
     'ExpenseTypes',
+    'RoleUserMaps',
     'JournalEntries',
     'ExpenseReports',
     'SavingsAccounts',
@@ -69,4 +70,5 @@ __all__ = [
     'ExpensePaymentTypes',
     'ChargeCardTransactions',
     'MultiEntityPreferences',
+    'RolePermissionAssignments',
 ]
