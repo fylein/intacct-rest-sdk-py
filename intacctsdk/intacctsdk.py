@@ -13,8 +13,9 @@ from intacctsdk.apis import (
     Accounts,
     Contacts,
     Sessions,
-    CostTypes,
+    Journals,
     Projects,
+    CostTypes,
     Customers,
     Employees,
     Locations,
@@ -84,6 +85,7 @@ class IntacctRESTSDK:
         self.vendors = Vendors(self)
         self.sessions = Sessions(self)
         self.accounts = Accounts(self)
+        self.journals = Journals(self)
         self.contacts = Contacts(self)
         self.projects = Projects(self)
         self.customers = Customers(self)
