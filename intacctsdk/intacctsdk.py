@@ -6,6 +6,7 @@ from intacctsdk.apis import (
     Bills,
     Items,
     Tasks,
+    Roles,
     Users,
     Classes,
     Vendors,
@@ -24,6 +25,7 @@ from intacctsdk.apis import (
     Departments,
     APPayments,
     Attachments,
+    Permissions,
     Allocations,
     RoleUserMaps,
     ExpenseTypes,
@@ -81,6 +83,7 @@ class IntacctRESTSDK:
         self.tasks = Tasks(self)
         self.items = Items(self)
         self.users = Users(self)
+        self.roles = Roles(self)
         self.classes = Classes(self)
         self.vendors = Vendors(self)
         self.sessions = Sessions(self)
@@ -95,6 +98,7 @@ class IntacctRESTSDK:
         self.dimensions = Dimensions(self)
         self.tax_details = TaxDetails(self)
         self.ap_payments = APPayments(self)
+        self.permissions = Permissions(self)
         self.departments = Departments(self)
         self.allocations = Allocations(self)
         self.attachments = Attachments(self)
