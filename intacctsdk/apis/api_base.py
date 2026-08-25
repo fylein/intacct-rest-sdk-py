@@ -20,7 +20,12 @@ class ApiBase:
     :param object_path: Object path
     :return: None
     """
-    def __init__(self, sdk_instance: 'IntacctRESTSDK' = None, object_path: str = None):
+    def __init__(
+        self,
+        sdk_instance: 'IntacctRESTSDK' = None,
+        object_path: str = None,
+        page_size: int = PAGE_SIZE
+    ):
         """
         Initialize the API base
         :param sdk_instance: Intacct REST SDK instance
@@ -32,6 +37,7 @@ class ApiBase:
         self._object_path = object_path
         self._sdk_instance = sdk_instance
         self.__object_name = object_path.replace('/objects/', '') if object_path else None
+        self.__page_size = page_size
 
         if sdk_instance:
             sdk_instance._register_api_instance(self)
@@ -118,7 +124,7 @@ class ApiBase:
         filter_expression: Optional[str] = None,
         filter_parameters: Dict = {},
         order_by: List[Dict] = [],
-        dimension_name: Optional[str] = None
+        dimension_name: Optional[str] = None,
     ) -> List[Dict]:
         """
         Get all objects from the API using user query service
@@ -147,7 +153,7 @@ class ApiBase:
                     'filterParameters': filter_parameters,
                     'orderBy': order_by,
                     'start': start,
-                    'size': PAGE_SIZE
+                    'size': self.__page_size
                 }
             )
 
@@ -156,7 +162,7 @@ class ApiBase:
             if response.get('ia::meta', {}).get('next') is None:
                 break
 
-            start += PAGE_SIZE
+            start += self.__page_size
 
     def count(
         self,

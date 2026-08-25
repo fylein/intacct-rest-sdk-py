@@ -2,6 +2,7 @@ from intacctsdk.apis.bills import Bills
 from intacctsdk.apis.items import Items
 from intacctsdk.apis.tasks import Tasks
 from intacctsdk.apis.users import Users
+from intacctsdk.apis.roles import Roles
 from intacctsdk.apis.classes import Classes
 from intacctsdk.apis.vendors import Vendors
 from intacctsdk.apis.api_base import ApiBase
@@ -20,6 +21,7 @@ from intacctsdk.apis.ap_payments import APPayments
 from intacctsdk.apis.allocations import Allocations
 from intacctsdk.apis.attachments import Attachments
 from intacctsdk.apis.departments import Departments
+from intacctsdk.apis.permissions import Permissions
 from intacctsdk.apis.expense_types import ExpenseTypes
 from intacctsdk.apis.role_user_maps import RoleUserMaps
 from intacctsdk.apis.journal_entries import JournalEntries
@@ -40,6 +42,7 @@ __all__ = [
     'Items',
     'Tasks',
     'Users',
+    'Roles',
     'Classes',
     'Vendors',
     'ApiBase',
@@ -57,6 +60,7 @@ __all__ = [
     'APPayments',
     'Allocations',
     'Attachments',
+    'Permissions',
     'Departments',
     'ExpenseTypes',
     'RoleUserMaps',
