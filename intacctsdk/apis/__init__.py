@@ -35,6 +35,7 @@ from intacctsdk.apis.expense_payment_types import ExpensePaymentTypes
 from intacctsdk.apis.charge_card_transactions import ChargeCardTransactions
 from intacctsdk.apis.multi_entity_preferences import MultiEntityPreferences
 from intacctsdk.apis.role_permission_assignments import RolePermissionAssignments
+from intacctsdk.apis.reporting_periods import ReportingPeriods
 
 
 __all__ = [
@@ -75,4 +76,5 @@ __all__ = [
     'ChargeCardTransactions',
     'MultiEntityPreferences',
     'RolePermissionAssignments',
+    'ReportingPeriods',
 ]
