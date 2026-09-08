@@ -40,6 +40,7 @@ from intacctsdk.apis import (
     ChargeCardTransactions,
     MultiEntityPreferences,
     RolePermissionAssignments,
+    ReportingPeriods,
 )
 
 
@@ -115,6 +116,7 @@ class IntacctRESTSDK:
         self.charge_card_transactions = ChargeCardTransactions(self)
         self.multi_entity_preferences = MultiEntityPreferences(self)
         self.role_permission_assignments = RolePermissionAssignments(self)
+        self.reporting_periods = ReportingPeriods(self)
         self.api_base = ApiBase(self, object_path='/oauth2/token')
 
         self.__update_entity_id()
