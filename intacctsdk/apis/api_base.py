@@ -64,7 +64,8 @@ class ApiBase:
         method: str,
         data: dict = {},
         params: dict = {},
-        use_api_headers: bool = True
+        use_api_headers: bool = True,
+        idempotent_key: str = None
     ) -> List[Dict] or Dict:
         """
         Makes a request to the API
@@ -73,6 +74,7 @@ class ApiBase:
         :param data: data to send
         :param params: parameters to send
         :param use_api_headers: whether to use API headers
+        :param idempotent_key: idempotency key for the request
         :return: response from the request
         """
         api_headers = {
@@ -81,6 +83,9 @@ class ApiBase:
             'Authorization': 'Bearer {0}'.format(self.__access_token),
             'X-IA-API-Param-Entity': self.__entity_id if self._object_path != '/objects/company-config/entity' else None
         }
+
+        if idempotent_key:
+            api_headers['Idempotency-Key'] = idempotent_key
 
         response = requests.request(
             url=url,
@@ -222,16 +227,18 @@ class ApiBase:
             }
         )
 
-    def post(self, data: Dict) -> Dict:
+    def post(self, data: Dict, idempotent_key: str = None) -> Dict:
         """
         Create an object
         :param data: data to create the object
+        :param idempotent_key: idempotency key for the request
         :return: created object
         """
         return self._make_request(
             method=RESTMethodEnum.POST,
             url=f'{BASE_URL}{self._object_path}',
-            data=data
+            data=data,
+            idempotent_key=idempotent_key
         )
 
     def update(self, key: str, data: Dict) -> Dict:
